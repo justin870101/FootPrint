@@ -17,6 +17,8 @@ class MineViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor.setBackgroundColor()
         // Do any additional setup after loading the view.
+        tableView.register(UINib(nibName: String(describing: mineCustomCell.self), bundle: nil), forCellReuseIdentifier: String(describing: mineCustomCell.self))
+        
         NetworkTool.loadMineData{ cellData in
             self.cellData = cellData
             self.tableView.reloadData()
@@ -32,7 +34,11 @@ extension MineViewController{
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        return section == 1 ? 0 : 10
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -46,8 +52,15 @@ extension MineViewController{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = cellData[indexPath.section][indexPath.row].text
+        //let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: mineCustomCell.self)) as! mineCustomCell
+        cell.mineCellTitle.text = cellData[indexPath.section][indexPath.row].text
+        cell.mineCellDesText.text = cellData[indexPath.section][indexPath.row].grey_text
+    
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -31,9 +31,10 @@ extension NetworkToolProtocol{
                     return
                 }
                 if let data = json["data"].dictionary{
-                    print(data)
+                    //print(data)
                     if let sections = data["sections"]?.array{
                         var sectionArray = [[mineCellModel]]()
+                        sectionArray.append([mineCellModel.deserialize(from: "{\"text\":\"我的关注\",\"grey_text\":\"\"}")!])
                         for sec in sections{
                             var itemArray = [mineCellModel]()
                             for item in sec.arrayObject!{

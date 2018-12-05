@@ -10,6 +10,6 @@ import UIKit
 import HandyJSON
 
 struct mineCellModel :HandyJSON {
-    var text :String?
-    var grey_text : String?
+    var text :String = ""
+    var grey_text : String = ""
 }
