@@ -12,28 +12,45 @@ import SwiftyJSON
 import HandyJSON
 
 protocol NetworkToolProtocol {
-    static func loadMineData()
+    static func loadMineData(completion:@escaping (_ sections:[[mineCellModel]])->())
 }
 
 extension NetworkToolProtocol{
-    static func loadMineData() {
-        let url = BaseURL + "/user/tab/tabs?"
-        let params = ["device_id":device_id]
-        Alamofire.request(url,parameters:params).responseJSON { (response) in
+    static func loadMineData(completion:@escaping (_ sections:[[mineCellModel]])->()){
+        let url = BaseURL + "/user/tab/tabs"
+        let params = ["device_id":device_id, "iid":iid]
+        //var sectionArray = [[mineCellModel]]()
+        Alamofire.request(url, parameters: params).responseJSON { (response) in
             guard response.result.isSuccess else{
                 return
             }
             if let result = response.result.value{
                 let json = JSON(result)
-                guard json["message"] == "sussess" else{
+                guard json["message"] == "success" else{
+                    //print(json["message"])
                     return
                 }
                 if let data = json["data"].dictionary{
                     print(data)
+                    if let sections = data["sections"]?.array{
+                        var sectionArray = [[mineCellModel]]()
+                        for sec in sections{
+                            var itemArray = [mineCellModel]()
+                            for item in sec.arrayObject!{
+                                let i = item as! NSDictionary
+                                let mcm = mineCellModel.deserialize(from: i)
+                                itemArray.append(mcm!)
+                            }
+                            sectionArray.append(itemArray)
+                        }
+                        completion(sectionArray)
+                        //return sectionArray
+                    }
                 }
             }
             
         }
+        //return sectionArray
     }
 }
 

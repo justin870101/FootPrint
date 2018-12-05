@@ -9,13 +9,18 @@
 import UIKit
 class MineViewController: UITableViewController {
 
+    var cellData = [[mineCellModel]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //view.backgroundColor = UIColor.yellow
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor.setBackgroundColor()
         // Do any additional setup after loading the view.
-        NetworkTool.loadMineData()
+        NetworkTool.loadMineData{ cellData in
+            self.cellData = cellData
+            self.tableView.reloadData()
+        }
     }
     
 }
@@ -23,7 +28,7 @@ class MineViewController: UITableViewController {
 extension MineViewController{
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return cellData.count
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -37,12 +42,12 @@ extension MineViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return cellData[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = "测试"
+        cell.textLabel?.text = cellData[indexPath.section][indexPath.row].text
         return cell
     }
 }
