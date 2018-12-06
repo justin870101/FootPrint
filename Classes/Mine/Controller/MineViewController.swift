@@ -16,8 +16,14 @@ class MineViewController: UITableViewController {
         //view.backgroundColor = UIColor.yellow
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor.setBackgroundColor()
+        tableView.separatorStyle = .none
         // Do any additional setup after loading the view.
-        tableView.register(UINib(nibName: String(describing: mineCustomCell.self), bundle: nil), forCellReuseIdentifier: String(describing: mineCustomCell.self))
+//        tableView.register(UINib(nibName: String(describing: mineCustomCell.self), bundle: nil), forCellReuseIdentifier: String(describing: mineCustomCell.self))
+//        tableView.register(UINib(nibName: String(describing: myConcertCell.self), bundle: nil), forCellReuseIdentifier: String(describing: myConcertCell.self))
+        
+        tableView.fp_registerCell(cell: mineCustomCell.self)
+        tableView.fp_registerCell(cell: myConcertCell.self)
+        
         
         NetworkTool.loadMineData{ cellData in
             self.cellData = cellData
@@ -53,7 +59,17 @@ extension MineViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: mineCustomCell.self)) as! mineCustomCell
+        if(indexPath.section == 0 && indexPath.row == 0)
+        {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: myConcertCell.self)) as! myConcertCell
+            let cell = tableView.fp_dequeueReusableCell(cell: myConcertCell.self)
+            cell.mineCellTitle.text = cellData[indexPath.section][indexPath.row].text
+            cell.mineCellDesText.text = cellData[indexPath.section][indexPath.row].grey_text
+            return cell
+        }
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: mineCustomCell.self)) as! mineCustomCell
+        let cell = tableView.fp_dequeueReusableCell(cell: mineCustomCell.self)
         cell.mineCellTitle.text = cellData[indexPath.section][indexPath.row].text
         cell.mineCellDesText.text = cellData[indexPath.section][indexPath.row].grey_text
     
