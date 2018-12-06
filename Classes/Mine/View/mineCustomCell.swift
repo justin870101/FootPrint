@@ -8,7 +8,7 @@
 
 import UIKit
 
-class mineCustomCell: UITableViewCell {
+class mineCustomCell: UITableViewCell, RegisterCell {
 
     @IBOutlet weak var mineCellTitle: UILabel!
     @IBOutlet weak var mineCellDesText: UILabel!

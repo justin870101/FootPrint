@@ -18,13 +18,10 @@ class MineViewController: UITableViewController {
         tableView.backgroundColor = UIColor.setBackgroundColor()
         tableView.separatorStyle = .none
         // Do any additional setup after loading the view.
-//        tableView.register(UINib(nibName: String(describing: mineCustomCell.self), bundle: nil), forCellReuseIdentifier: String(describing: mineCustomCell.self))
-//        tableView.register(UINib(nibName: String(describing: myConcertCell.self), bundle: nil), forCellReuseIdentifier: String(describing: myConcertCell.self))
         
         tableView.fp_registerCell(cell: mineCustomCell.self)
         tableView.fp_registerCell(cell: myConcertCell.self)
-        
-        
+  
         NetworkTool.loadMineData{ cellData in
             self.cellData = cellData
             self.tableView.reloadData()

@@ -14,6 +14,6 @@ extension UIColor{
     }
     
     class func setBackgroundColor() -> UIColor{
-        return UIColor(displayP3Red: 245 / 255.0, green: 245 / 255.0, blue: 245 / 255.0, alpha: 1.0)
+        return UIColor(displayP3Red: 235 / 255.0, green: 235 / 255.0, blue: 235 / 255.0, alpha: 1.0)
     }
 }

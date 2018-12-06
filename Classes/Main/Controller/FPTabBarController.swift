@@ -23,9 +23,9 @@ class FPTabBarController: UITabBarController {
      * 添加子控制器
      */
     private func addChildViewControllers() {
-        addChildViewController(childController: HomeViewController(), title: "首页", imageName: "home_tabBar_32x32_")
-        addChildViewController(childController: FootPrintViewController(), title: "足迹", imageName: "home_tabBar_32x32_")
-        addChildViewController(childController: MineViewController(), title: "我的", imageName: "home_tabBar_32x32_")
+        addChildViewController(childController: HomeViewController(), title: "首页", imageName: "home_tabbar_32x32_")
+        addChildViewController(childController: FootPrintViewController(), title: "足迹", imageName: "huoshan_tabbar_32x32_")
+        addChildViewController(childController: MineViewController(), title: "我的", imageName: "mine_tabbar_32x32_")
         //addChildViewController(childController: YMMeViewController(), title: "我的", imageName: "TabBar_me_boy_23x23_")
     }
     
